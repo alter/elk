@@ -1,0 +1,13 @@
+at-logstash:
+  restart: always
+  image: localhost:5000/at-logstash-2.0:v8
+  container_name: at-logstash-localhost
+  user: elk 
+  command: bash -c "/opt/logstash/bin/logstash agent -f /etc/logstash/conf.d/ --verbose --debug"
+  external_links:
+    - at-elastic-localhost
+
+  volumes:
+    - /opt/docker/services/logstash/data/:/opt/elk/data/:rw
+    - /opt/docker/services/logstash/logs/:/opt/elk/logs/:rw
+    - /opt/docker/services/logstash/conf/:/etc/logstash/conf.d/:ro

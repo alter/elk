@@ -1,0 +1,14 @@
+at-elastic:
+  restart: always
+  image: localhost:5000/at-elastic-2.0:v1 
+  container_name: at-elastic-localhost
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  user: elk
+  command: bash -c "/usr/share/elasticsearch/bin/elasticsearch -Des.pidfile=/opt/elk/elasticsearch.pid -Des.default.path.home=/usr/share/elasticsearch -Des.default.path.logs=/opt/elk/logs -Des.default.path.data=/opt/elk/data -Des.default.path.conf=/etc/elasticsearch"
+
+  volumes:
+    - /opt/docker/services/elasticsearch/data/:/opt/elk/data/:rw
+    - /opt/docker/services/elasticsearch/logs/:/opt/elk/logs/:rw
+    - /opt/docker/services/elasticsearch/conf/:/etc/elasticsearch/:ro

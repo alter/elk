@@ -1,0 +1,13 @@
+registry:
+  restart: always
+  image: registry:2
+  container_name: at-registry-localhost
+  ports:
+    - 5000:5000
+  environment:
+    REGISTRY_AUTH: htpasswd
+    REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+    REGISTRY_AUTH_HTPASSWD_REALM: Registry Realm
+  volumes:
+    - /opt/docker/registry:/var/lib/registry
+    - /opt/docker/auth:/auth
